@@ -6,8 +6,9 @@ import java.sql.*;
 import java.util.ArrayList;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.json.simple.JSONObject;
 
-public class JsonToJava {
+public class JavaToJson {
     public static void main(String args[]) throws ClassNotFoundException, SQLException, IOException {
         //Import the driver
         Class.forName("com.mysql.cj.jdbc.Driver");
@@ -27,16 +28,16 @@ public class JsonToJava {
             listCustomerInfo.add(customerInfo);
         }
 
+        ObjectMapper objectMapper = new ObjectMapper();
+
+        JSONObject data = new JSONObject();
+        data.put("data", listCustomerInfo);
+
+        Path currentRelativePath = Paths.get("");
+        String jsonPath = currentRelativePath.toAbsolutePath().toString() + "\\jsonfiles\\listCustomerInfo.json";
+
+        objectMapper.writeValue(new File(jsonPath), data);
+
         conn.close();
-
-        for(int i=0; i < listCustomerInfo.size(); i++){
-            ObjectMapper objectMapper = new ObjectMapper();
-
-            Path currentRelativePath = Paths.get("");
-            String jsonPath = currentRelativePath.toAbsolutePath().toString() + "\\jsonfiles\\customerInfo" + i + ".json";
-
-            objectMapper.writeValue(new File(jsonPath), listCustomerInfo.get(i));
-        }
-
     }
 }
