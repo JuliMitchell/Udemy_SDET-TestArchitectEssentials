@@ -10,10 +10,18 @@ public class JsonToJava {
         ResultSet rs = st.executeQuery("select * from CustomerInfo where purchasedDate=CURDATE() and Location ='Asia';");
 
         while(rs.next()){
-            System.out.println(rs.getString(1));
-            System.out.println(rs.getString(2));
-            System.out.println(rs.getInt(3));
-            System.out.println(rs.getString(4));
+
+            CustomerInfo customerInfo = new CustomerInfo();
+
+            customerInfo.setCourseName(rs.getString(1));
+            customerInfo.setPurchasedDate(rs.getString(2));
+            customerInfo.setAmount(rs.getInt(3));
+            customerInfo.setLocation(rs.getString(4));
+
+            System.out.println(customerInfo.getCourseName());
+            System.out.println(customerInfo.getPurchasedDate());
+            System.out.println(customerInfo.getAmount());
+            System.out.println(customerInfo.getLocation());
         }
 
         conn.close();
