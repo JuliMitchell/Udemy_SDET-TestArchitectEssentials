@@ -1,0 +1,1 @@
+docker-compose up >> startDockerContainers_log.txt

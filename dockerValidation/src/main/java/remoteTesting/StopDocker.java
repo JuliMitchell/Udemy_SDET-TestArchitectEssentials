@@ -3,31 +3,31 @@ package remoteTesting;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import javax.swing.text.Style;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.nio.file.Path;
+import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Calendar;
 
-public class StartDocker {
+public class StopDocker {
 
 
-    public void startFile() throws IOException, InterruptedException {
+    public void stopFile() throws IOException, InterruptedException {
         boolean textFounded = false;
 
         Runtime runtime = Runtime.getRuntime();
 
         String pathProjectParent = Paths.get("").toAbsolutePath().normalize().toString();
-        String pathDockerCompose = pathProjectParent + "\\windowsBatch\\startDockerContainers.bat";
+        String pathDockerCompose = pathProjectParent + "\\windowsBatch\\stopDockerContainers.bat";
 
         runtime.exec("cmd /c start " + pathDockerCompose);
 
         String logFile = pathProjectParent + "\\startDockerContainers_log.txt";
 
         Calendar calendar = Calendar.getInstance();
-        calendar.add(Calendar.SECOND, 45);
+        calendar.add(Calendar.SECOND, 60);
         long stopReader = calendar.getTimeInMillis();
 
         Thread.sleep(1500);
@@ -40,7 +40,7 @@ public class StartDocker {
             String currentLine = reader.readLine();
 
             while(currentLine != null && !textFounded){
-                if(currentLine.contains("The node is registered to the hub and ready to use")){
+                if(currentLine.contains("Shutdown complete")){
                     System.out.println("Found Text.");
                     textFounded = true;
                     break;
@@ -49,11 +49,24 @@ public class StartDocker {
             }
             reader.close();
         }
+
         Assert.assertTrue(textFounded);
 
-        String pathDockerScale = pathProjectParent + "\\windowsBatch\\scaleDockerChromeNodes.bat";
-        runtime.exec("cmd /c start " + pathDockerScale);
+        Thread.sleep(5000);
 
+        try{
+            Files.deleteIfExists(Paths.get(logFile));
+            System.out.println("Deletion successful.");
+        }catch (Exception e) {
+            System.out.println("Deletion unsuccessful: " + e.toString());
+        }
+
+        /*
+        File file = new File(logFile);
+        if(file.delete()){
+            System.out.println("File deleted successfully.");
+        }
+        */
         Thread.sleep(5000);
     }
 }
