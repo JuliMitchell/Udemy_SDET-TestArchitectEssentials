@@ -3,6 +3,8 @@ package streamsTutorial;
 import org.testng.annotations.Test;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.stream.Stream;
 
 public class TestOne {
@@ -58,5 +60,11 @@ public class TestOne {
         System.out.println("Names ending with 'a' in upper case mode:");
         Stream.of("Julián", "Alejandro", "Oscar", "Agustina", "Mauro").filter(name -> name.endsWith("a")).map(name -> name.toUpperCase())
                 .forEach(name -> System.out.println(name));
+
+        System.out.println("Names starting with 'a' and ordered in upper case: ");
+        List<String> names = Arrays.asList("Julián", "Alejandro", "Oscar", "Agustina", "Mauro");
+        names.stream().filter(name -> name.startsWith("A")).sorted().map(name -> name.toUpperCase())
+                .forEach(name -> System.out.println(name));
+
     }
 }
