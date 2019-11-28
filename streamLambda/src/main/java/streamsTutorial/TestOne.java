@@ -5,6 +5,7 @@ import org.testng.annotations.Test;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class TestOne {
@@ -81,6 +82,21 @@ public class TestOne {
         String nameToSearch = "agustina";
         boolean nameFounded = bothStream.anyMatch(name -> name.equalsIgnoreCase(nameToSearch));
         System.out.println("Is '" + nameToSearch + "' name in the array? : " + nameFounded);
+
+    }
+
+    @Test
+    public void streamCollect(){
+        List<String> stringList = Stream.of("Julián", "Alejandro", "Oscar", "Agustina", "Mauro").filter(name -> name.startsWith("A"))
+                .map(name -> name.toUpperCase()).collect(Collectors.toList());
+        System.out.println(stringList.get(0));
+
+        List<Integer> values = Arrays.asList(3,4,5,7,9,4,4,1,3);
+        System.out.println("Values of array: ");
+        values.stream().distinct().sorted().forEach(number -> System.out.println(number));
+
+        List<Integer> valuesSorted = values.stream().distinct().sorted().collect(Collectors.toList());
+        System.out.println("The 3rd value is: " + valuesSorted.get(2));
 
     }
 }
