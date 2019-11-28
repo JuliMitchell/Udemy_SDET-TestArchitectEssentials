@@ -43,6 +43,10 @@ public class TestOne {
         Long countStream = Stream.of("Julián", "Alejandro", "Oscar", "Agustina", "Mauro").filter(name -> name.startsWith("A")).count();
         System.out.println("Count using only a stream: " + countStream);
 
-
+        Long countStreamLambda = Stream.of("Julián", "Alejandro", "Oscar", "Agustina", "Mauro").filter(name -> {
+            name.startsWith("A");
+            return true;
+        }).count();
+        System.out.println("Count using only a stream with a lambda function: " + countStreamLambda);
     }
 }
