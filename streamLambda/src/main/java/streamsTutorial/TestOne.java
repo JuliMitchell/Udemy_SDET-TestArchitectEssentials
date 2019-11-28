@@ -26,4 +26,17 @@ public class TestOne {
 
         System.out.println(count);
     }
+
+    @Test
+    public void streamFilter(){
+        ArrayList<String> names = new ArrayList<String>();
+        names.add("Julián");
+        names.add("Alejandro");
+        names.add("Oscar");
+        names.add("Agustina");
+        names.add("Mauro");
+
+        Long count = names.stream().filter(name -> name.startsWith("A")).count();
+        System.out.println(count);
+    }
 }
