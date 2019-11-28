@@ -52,4 +52,11 @@ public class TestOne {
         System.out.println("Names with 6 or more words: ");
         names.stream().filter(name -> name.length() > 5).forEach(name -> System.out.println(name));
     }
+
+    @Test
+    public void streamMap(){
+        System.out.println("Names ending with 'a' in upper case mode:");
+        Stream.of("Julián", "Alejandro", "Oscar", "Agustina", "Mauro").filter(name -> name.endsWith("a")).map(name -> name.toUpperCase())
+                .forEach(name -> System.out.println(name));
+    }
 }
