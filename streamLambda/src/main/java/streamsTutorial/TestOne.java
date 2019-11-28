@@ -48,5 +48,8 @@ public class TestOne {
             return true;
         }).count();
         System.out.println("Count using only a stream with a lambda function: " + countStreamLambda);
+
+        System.out.println("Names with 6 or more words: ");
+        names.stream().filter(name -> name.length() > 5).forEach(name -> System.out.println(name));
     }
 }
