@@ -3,6 +3,7 @@ package streamsTutorial;
 import org.testng.annotations.Test;
 
 import java.util.ArrayList;
+import java.util.stream.Stream;
 
 public class TestOne {
 
@@ -36,7 +37,12 @@ public class TestOne {
         names.add("Agustina");
         names.add("Mauro");
 
-        Long count = names.stream().filter(name -> name.startsWith("A")).count();
-        System.out.println(count);
+        Long countArray = names.stream().filter(name -> name.startsWith("A")).count();
+        System.out.println("Count using an array: " + countArray);
+
+        Long countStream = Stream.of("Julián", "Alejandro", "Oscar", "Agustina", "Mauro").filter(name -> name.startsWith("A")).count();
+        System.out.println("Count using only a stream: " + countStream);
+
+
     }
 }
